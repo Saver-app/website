@@ -247,7 +247,7 @@ export default function Page() {
             </span>
           </>
         }
-        subtitle="Share it from any app and it lands exactly where it belongs"
+        subtitle="Save from any app. Access it across your devices. Share spaces with others."
         action={
           <div className={styles.heroActionStack}>
             <div className={styles.heroActions}>
