@@ -6,7 +6,10 @@ import { PlatformActionButton } from "@/components/platform_action_button/platfo
 import { Section } from "@/components/section/section";
 import {
   DISCORD_BOT_URL,
+  DISCORD_INVITE_URL,
   MATERIAL_SYMBOLS,
+  PATREON_URL,
+  REDDIT_URL,
   WEB_APP_URL,
 } from "@/constants";
 import styles from "./page.module.css";
@@ -123,6 +126,33 @@ const platforms: readonly Platform[] = [
     description:
       "Pair the tablet with your synced tasks and send reminders to your phone.",
     href: "https://docs.saver-app.com/remarkable",
+  },
+] as const;
+
+interface CommunityLink {
+  title: string;
+  description: string;
+  href: string;
+}
+
+/* Same three places the footer lists, surfaced where people will see them. */
+const communityLinks: readonly CommunityLink[] = [
+  {
+    title: "Join us on Discord",
+    description:
+      "Get help, ask questions, and meet other people who use Saver.",
+    href: DISCORD_INVITE_URL,
+  },
+  {
+    title: "r/SaverApp on Reddit",
+    description:
+      "Share how you use Saver, post ideas, and follow what’s coming next.",
+    href: REDDIT_URL,
+  },
+  {
+    title: "Support on Patreon",
+    description: "Back the project and help decide what gets built next.",
+    href: PATREON_URL,
   },
 ] as const;
 
@@ -598,6 +628,22 @@ export default function Page() {
           </div>
         </div>
       </div>
+
+      <ul className={`${styles.band} ${styles.communityCards}`} id="community">
+        {communityLinks.map((link) => (
+          <li key={link.title}>
+            <a
+              className={styles.communityCard}
+              href={link.href}
+              target="_blank"
+              rel="noreferrer"
+            >
+              <h3>{link.title}</h3>
+              <p>{link.description}</p>
+            </a>
+          </li>
+        ))}
+      </ul>
     </>
   );
 }

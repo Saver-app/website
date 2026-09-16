@@ -857,6 +857,60 @@
   color: #ffffff;
 }
 
+/* Community */
+
+/*
+  Sits directly under the closing panel as a quiet row of three, the same
+  way the footer lists them, so it reads as a coda rather than a new section.
+*/
+.communityCards {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+  margin-bottom: 40px;
+  list-style: none;
+}
+
+.communityCard {
+  display: flex;
+  height: 100%;
+  flex-direction: column;
+  gap: 8px;
+  padding: 22px 24px;
+  border: 1px solid var(--border-hairline);
+  border-radius: var(--radius-md);
+  background: var(--surface-muted);
+  color: inherit;
+  text-decoration: none;
+  transition: border-color var(--duration) var(--ease-out),
+    background-color var(--duration) var(--ease-out);
+}
+
+.communityCard:hover {
+  border-color: var(--border-strong);
+  background: var(--color-fill-3);
+}
+
+.communityCard:focus-visible {
+  outline: 2px solid var(--color-text-primary);
+  outline-offset: 4px;
+}
+
+.communityCard h3 {
+  font-family: var(--font-display);
+  font-size: 17px;
+  font-weight: 700;
+  letter-spacing: var(--tracking-tight);
+  line-height: 1.3;
+}
+
+.communityCard p {
+  color: var(--color-text-secondary);
+  font-size: 15px;
+  line-height: 1.5;
+  text-wrap: pretty;
+}
+
 @container root style(--color-scheme: dark) {
   .pricing {
     --feature-bg: #f4f3ef;
@@ -1188,6 +1242,16 @@
     border: 1px solid rgb(255 255 255 / 0.28);
     background: transparent;
     color: #ffffff;
+  }
+
+  .communityCards {
+    grid-template-columns: 1fr;
+    gap: 10px;
+    margin-bottom: 24px;
+  }
+
+  .communityCard {
+    padding: 18px 20px;
   }
 }
 

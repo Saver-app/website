@@ -1,8 +1,11 @@
 import {
   BODY_FONT,
+  DISCORD_INVITE_URL,
   DISPLAY_FONT,
   DISPLAY_HEAVY_FONT,
   IS_WAITLIST_ENABLED,
+  PATREON_URL,
+  REDDIT_URL,
   SITE_URL,
   THEME,
   WEB_APP_URL,
@@ -142,9 +145,9 @@ export default function RootLayout({
                   <MultiColumnFooter.Column
                     title="Community"
                     links={[
-                      { label: "Discord", href: "https://discord.com/invite/f7BGpQFSeF", external: true },
-                      { label: "Patreon", href: "https://www.patreon.com/cw/saverapp", external: true },
-                      { label: "Reddit", href: "https://www.reddit.com/r/SaverApp/", external: true },
+                      { label: "Discord", href: DISCORD_INVITE_URL, external: true },
+                      { label: "Patreon", href: PATREON_URL, external: true },
+                      { label: "Reddit", href: REDDIT_URL, external: true },
                     ]}
                   />
                 </MultiColumnFooter.Stack>

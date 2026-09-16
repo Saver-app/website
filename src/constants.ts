@@ -24,6 +24,9 @@ export const CHROME_EXTENSION_URL =
 export const DISCORD_BOT_URL =
   "https://discord.com/oauth2/authorize?client_id=1416353094970642464";
 export const WEB_APP_URL = "https://app.saver-app.com";
+export const DISCORD_INVITE_URL = "https://discord.com/invite/f7BGpQFSeF";
+export const REDDIT_URL = "https://www.reddit.com/r/SaverApp/";
+export const PATREON_URL = "https://www.patreon.com/cw/saverapp";
 
 /**
  * Body/UI typeface. Exposed as `--font-sans-family` and consumed through the
@@ -93,6 +96,7 @@ export const MATERIAL_SYMBOLS = [
   "public",
   "extension",
   "smart_toy",
+  "favorite",
   "menu",
   "close",
 ] as const;
