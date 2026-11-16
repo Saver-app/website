@@ -48,11 +48,14 @@
   justify-content: center;
   width: 40px;
   height: 40px;
+  /* The same tile the landing page uses: the app icon in miniature. */
+  border-radius: 12px;
+  background: var(--icon-tile);
   color: var(--color-accent-gold);
 }
 
 .cardIcon span {
-  font-size: 26px;
+  font-size: 22px;
 }
 
 .cardCopy {

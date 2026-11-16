@@ -24,17 +24,18 @@ html {
   --content-width: min(calc(100% - 40px), var(--base-width));
 
   /*
-    Typography. `--font-sans-family` and `--font-display-family` are injected by
-    next/font (see BODY_FONT and DISPLAY_FONT in `src/constants.ts`).
+    Typography. `--font-sans-family` is injected by next/font (see BODY_FONT in
+    `src/constants.ts`). The whole site is set in that one family; the display
+    and heavy tokens stay so a module can still name the role it is setting.
   */
   --font-body: var(--font-sans-family), system-ui, -apple-system,
     BlinkMacSystemFont, "Segoe UI", sans-serif;
-  --font-display: var(--font-display-family), var(--font-body);
-  --font-heavy: var(--font-heavy-family), var(--font-body);
+  --font-display: var(--font-body);
+  --font-heavy: var(--font-body);
 
-  --tracking-display: -0.032em;
-  --tracking-tight: -0.018em;
-  --tracking-body: -0.008em;
+  --tracking-display: -0.028em;
+  --tracking-tight: -0.014em;
+  --tracking-body: 0em;
 
   /* Corner radii */
   --radius-xs: 8px;
@@ -61,9 +62,22 @@ html {
   );
   --surface-card: var(--color-fill-0);
   --surface-muted: var(--color-fill-2);
-  --surface-dark: #181714;
+  /*
+    The black of the app icon, kept neutral. A brown or blue cast here is what
+    turns the dark panels into somebody else's brand.
+  */
+  --surface-dark: #0c0c0d;
   --surface-dark-text: #ffffff;
   --surface-dark-muted: rgb(255 255 255 / 0.64);
+  --surface-dark-hairline: rgb(255 255 255 / 0.22);
+  /* Ink for copy that sits on the brand yellow, in either theme. */
+  --on-accent: #111113;
+  --focus-ring: var(--color-text-primary);
+  /*
+    Ground of the small icon tiles, which carry a yellow glyph the way the app
+    icon does. It lifts in dark mode so the tile stays visible on a dark panel.
+  */
+  --icon-tile: #111113;
   --surface-brand: color-mix(
     in srgb,
     var(--color-accent-gold) 13%,
@@ -84,38 +98,22 @@ html {
     color-mix(in srgb, var(--color-accent-gold) 14%, transparent);
 
   /*
-    Marketing panels. The landing page is built from full-bleed rounded panels
-    that alternate colour, so the sky/butter/mist fills and the panel geometry
-    live here rather than being repeated per module.
+    Marketing panels. The landing page is built from rounded panels, so their
+    fills and geometry live here rather than being repeated per module. The
+    fills are neutral on purpose: black, and two greys one step apart.
+
+    The brand yellow is never a panel fill. Tried as a field behind the product
+    shots and as a pale wash over a whole panel, it glared both times. It works
+    in small pieces instead: actions, labels, and the glyphs on the icon tiles.
   */
   --panel-inset: 10px;
   --panel-radius: 24px;
-  /*
-    The hero panel is a flat sandstone field, warm and clearly not white, with
-    no gradient. An earlier pass ran a Headspace-style blurred mesh here; it was
-    dropped in favour of a plain fill.
-  */
-  --panel-sand: #f2e8d2;
-  --panel-butter: #f8ecba;
-  --panel-butter-deep: #f2dd94;
-  --panel-mist: #efece6;
-  /*
-    Clay: the warm rose-taupe the spaces panel sits on. It follows the dark
-    ConfettiHero, so it carries enough chroma to land as a warm surface in its
-    own right rather than reading as off-white.
-  */
-  --panel-clay: #ece0d6;
-  --panel-clay-deep: #e0cdbd;
-  --panel-ink: #17161a;
+  --panel-soft: #f2f2f4;
+  --panel-soft-deep: #e4e4e8;
+  --panel-ink: #111113;
   --panel-ink-soft: color-mix(in srgb, var(--panel-ink) 64%, transparent);
   --panel-card: #ffffff;
 
-  /*
-    mymind's hero is a heavily blurred bloom of colour rather than a linear
-    gradient. These are its stops, rebuilt from Saver's warm gold palette: gold
-    core, peach mid, and a whisper of cool lavender so the bloom has the
-    warm/cool bleed that makes mymind's version read as light rather than paint.
-  */
   /* Motion */
   --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
   --duration-fast: 120ms;
@@ -176,20 +174,22 @@ body {
     --shadow-lg: 0 18px 48px rgb(0 0 0 / 0.45);
 
     /*
-      The panels keep their shape in dark mode but drop to a night sky, so the
+      The page itself is near-black here, so the dark panels lift one step to
+      stay visible as panels instead of dissolving into it.
+    */
+    --surface-dark: #161618;
+    --focus-ring: var(--color-accent-gold);
+
+    /*
+      The panels keep their shape in dark mode and become raised greys, so the
       landing page reads as the same design rather than an inverted copy.
     */
-    --panel-sand: #1a1713;
-    --panel-butter: #2a2617;
-    --panel-butter-deep: #35301c;
-    --panel-mist: #1a1917;
-    --panel-clay: #211c19;
-    --panel-clay-deep: #2c2521;
-    --panel-ink: #f4f2ec;
+    --panel-soft: #141416;
+    --panel-soft-deep: #202023;
+    --panel-ink: #f4f4f5;
+    --icon-tile: #26262a;
     --panel-ink-soft: color-mix(in srgb, var(--panel-ink) 58%, transparent);
-    --panel-card: #1c1a17;
-
-    /* The bloom stays, at roughly a third the intensity so it glows. */
+    --panel-card: #1b1b1d;
   }
 }
 
@@ -237,11 +237,15 @@ ol[role="list"] {
 }
 
 ::selection {
-  background: color-mix(in srgb, var(--color-accent-gold) 28%, transparent);
+  background: color-mix(in srgb, var(--color-accent-gold) 46%, transparent);
 }
 
+/*
+  Ink on light surfaces and the brand yellow on dark ones. The yellow alone
+  would disappear on white, so the ring follows the surface it is drawn on.
+*/
 :focus-visible {
-  outline: 2px solid var(--color-accent-gold);
+  outline: 2px solid var(--focus-ring);
   outline-offset: 2px;
   border-radius: var(--radius-xs);
 }

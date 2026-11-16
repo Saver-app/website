@@ -27,7 +27,7 @@ const SCREENSHOTS = {
 /*
   The other half of the promise. Each route is somewhere you already are when
   you find the thing, so the copy names the moment rather than the product.
-  Icons carry the same tile language as the platform list below, so the two
+  Icons are the same bare glyphs the platform list below uses, so the two
   sections read as one family.
 */
 /* A Material symbol name, or a brand mark where the service has its own. */
@@ -43,11 +43,6 @@ function SectionIcon({ icon, size }: { icon: SectionIcon; size: number }) {
   const Logo = icon;
 
   return <Logo width={size} height={size} />;
-}
-
-/* Keys a mixed icon list, where a brand mark has no name of its own. */
-function iconKey(icon: SectionIcon, fallback: string) {
-  return typeof icon === "string" ? icon : fallback;
 }
 
 interface CaptureRoute {
@@ -87,8 +82,11 @@ const secondaryCaptureRoutes: readonly CaptureRoute[] = [
 ] as const;
 
 interface Platform {
-  /* Grammarly leads each column with a cluster of platform marks, not one icon. */
-  icons: readonly SectionIcon[];
+  /*
+    One mark per platform. A second generic symbol beside it only works when
+    both are real platform logos, which is what Grammarly's clusters are.
+  */
+  icon: SectionIcon;
   title: string;
   description: string;
   href: string;
@@ -96,32 +94,36 @@ interface Platform {
 
 const platforms: readonly Platform[] = [
   {
-    icons: ["smartphone", "tablet_mac"],
+    icon: "smartphone",
     title: "iPhone & Android",
     description:
       "Start without an account and keep as much as you like on your phone.",
     href: "/download#mobile",
   },
   {
-    icons: ["language", "desktop_windows"],
+    icon: "language",
     title: "Web app",
     description: "Open your synced spaces from any browser.",
     href: WEB_APP_URL,
   },
   {
-    icons: ["extension", "public"],
+    icon: "extension",
     title: "Safari & Chrome",
     description: "Adds Saver to the browser you already use.",
     href: "/download#extensions",
   },
   {
-    icons: ["smart_toy", DiscordLogo],
+    /*
+      A generic symbol rather than Discord's mark: the tile tints its glyph
+      yellow, and their logo is only to be shown in their own colours.
+    */
+    icon: "smart_toy",
     title: "Discord bot",
     description: "Runs in your server, for you and anyone you share a space with.",
     href: DISCORD_BOT_URL,
   },
   {
-    icons: ["tablet_mac", "sync"],
+    icon: "tablet_mac",
     title: "reMarkable",
     description:
       "Pair the tablet with your synced tasks and send reminders to your phone.",
@@ -236,7 +238,7 @@ const spaceContents = [
 }[];
 
 /*
-  Every note carries a tile from the same set as the capture routes below, so
+  Every note carries an icon from the same set as the capture routes below, so
   the three rows keep one rhythm instead of starting rich and going flat.
 */
 const spaceNotes = [
@@ -265,14 +267,16 @@ export default function Page() {
         title={
           /*
             Two sentences on one line reads as a run-on once the title wraps,
-            so each is its own block on mobile and the breaks land on the
-            full stop instead of orphaning "All" onto the line above.
+            so each is its own block and the breaks land on the full stop
+            instead of orphaning "All" onto the line above.
           */
           <>
             <span className={styles.heroTitleSentence}>
               Bookmarks, tasks, and habits.
             </span>{" "}
-            <span className={styles.heroTitleSentence}>
+            <span
+              className={`${styles.heroTitleSentence} ${styles.heroTitleAccent}`}
+            >
               All in one space.
             </span>
           </>
@@ -371,7 +375,7 @@ export default function Page() {
             <article className={`${styles.spaceNote} ${styles.spaceNoteLead}`}>
               <h3>
                 <span className={styles.spaceNoteIcon} aria-hidden="true">
-                  <Icon name="workspaces" size={18} />
+                  <Icon name="workspaces" size={20} />
                 </span>
                 One space for the whole thing
               </h3>
@@ -395,7 +399,7 @@ export default function Page() {
               <article key={note.title} className={styles.spaceNote}>
                 <h3>
                   <span className={styles.spaceNoteIcon} aria-hidden="true">
-                    <Icon name={note.icon} size={18} />
+                    <Icon name={note.icon} size={20} />
                   </span>
                   {note.title}
                 </h3>
@@ -428,7 +432,7 @@ export default function Page() {
                 <div key={route.title} className={styles.captureRoute}>
                   <dt>
                     <span className={styles.captureRouteIcon} aria-hidden="true">
-                      <SectionIcon icon={route.icon} size={18} />
+                      <SectionIcon icon={route.icon} size={20} />
                     </span>
                     {route.title}
                   </dt>
@@ -484,7 +488,7 @@ export default function Page() {
 
       <Section paddingTop={110} navigationAnchor="platforms">
         <header className={styles.editorialHeader}>
-          <h2>Saver accross your devices.</h2>
+          <h2>Saver across your devices.</h2>
           <p>
             Start with the mobile app. Add the web app, the browser extensions,
             your reMarkable, or the Discord bot when you want them.
@@ -501,15 +505,8 @@ export default function Page() {
                   platform.href.startsWith("http") ? "noreferrer" : undefined
                 }
               >
-                <span className={styles.platformIcons} aria-hidden="true">
-                  {platform.icons.map((icon, index) => (
-                    <span
-                      key={iconKey(icon, `${platform.title}-${index}`)}
-                      className={styles.platformIcon}
-                    >
-                      <SectionIcon icon={icon} size={18} />
-                    </span>
-                  ))}
+                <span className={styles.platformIcon} aria-hidden="true">
+                  <SectionIcon icon={platform.icon} size={22} />
                 </span>
                 <div className={styles.platformCopy}>
                   <h3>{platform.title}</h3>
@@ -579,7 +576,7 @@ export default function Page() {
                 <ul>
                   {plan.features.map((feature) => (
                     <li key={feature}>
-                      <Icon name="check_circle" size={16} />
+                      <Icon name="check" size={17} />
                       <span>{feature}</span>
                     </li>
                   ))}

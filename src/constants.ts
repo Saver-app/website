@@ -1,10 +1,4 @@
-import {
-  Caveat,
-  Dancing_Script,
-  Figtree,
-  Inter,
-  Plus_Jakarta_Sans,
-} from "next/font/google";
+import { Caveat, Dancing_Script, Figtree } from "next/font/google";
 import { ColorScheme } from "./types/shared";
 
 export const THEME: "system" | "light" | "dark" = "system";
@@ -29,37 +23,15 @@ export const REDDIT_URL = "https://www.reddit.com/r/SaverApp/";
 export const PATREON_URL = "https://www.patreon.com/cw/saverapp";
 
 /**
- * Body/UI typeface. Exposed as `--font-sans-family` and consumed through the
- * `--font-body` token in `global.css`.
+ * The one typeface of the site, loaded as a variable font so body copy, UI
+ * and headlines all draw from the same family. Exposed as `--font-sans-family`
+ * and consumed through the `--font-body`, `--font-display` and `--font-heavy`
+ * tokens in `global.css`.
  */
-export const BODY_FONT = Inter({
+export const BODY_FONT = Figtree({
   subsets: ["latin"],
   display: "swap",
   variable: "--font-sans-family",
-});
-
-/**
- * Display typeface used for headlines and other large type. Exposed as
- * `--font-display-family` and consumed through the `--font-display` token.
- */
-export const DISPLAY_FONT = Plus_Jakarta_Sans({
-  subsets: ["latin"],
-  display: "swap",
-  weight: ["500", "600", "700", "800"],
-  variable: "--font-display-family",
-});
-
-/**
- * Heavy geometric grotesque used for marketing headlines, in the vein of
- * Jitter's display type: very bold, tight tracking, tight leading. Exposed as
- * `--font-heavy-family` and consumed through the `--font-heavy` token. Only the
- * landing page reaches for it; the rest of the site stays on `--font-display`.
- */
-export const DISPLAY_HEAVY_FONT = Figtree({
-  subsets: ["latin"],
-  display: "swap",
-  weight: ["700", "800", "900"],
-  variable: "--font-heavy-family",
 });
 
 /**
@@ -73,10 +45,10 @@ export const CURSIVE_FONT = Dancing_Script({ subsets: ["latin"] });
 export const MATERIAL_SYMBOLS = [
   "send",
   "ios_share",
-  "sync",
   "group",
   "bookmark_add",
   "check_circle",
+  "check",
   "list",
   "repeat",
   "cloud_off",
@@ -91,9 +63,7 @@ export const MATERIAL_SYMBOLS = [
   "target",
   "smartphone",
   "tablet_mac",
-  "desktop_windows",
   "language",
-  "public",
   "extension",
   "smart_toy",
   "favorite",
@@ -101,17 +71,21 @@ export const MATERIAL_SYMBOLS = [
   "close",
 ] as const;
 
-// Warm neutral system with the Saver gold as the single accent hue.
+/*
+  Neutral greys with the Saver yellow from the wordmark as the single accent
+  hue. The yellow is too light to be text or an icon on white, so it only ever
+  sits on a dark surface or works as a fill behind dark text.
+*/
 export const COLORS: ColorScheme = {
   LIGHT: {
-    "text-primary": "#17161A",
-    "text-secondary": "rgba(23, 22, 26, 0.62)",
+    "text-primary": "#111113",
+    "text-secondary": "rgba(17, 17, 19, 0.62)",
     "fill-0": "#FFFFFF",
     "fill-1": "#FFFFFF",
-    "fill-2": "#F3F3F1",
-    "fill-3": "#E7E4DD",
-    "accent-brand": "#17161A",
-    "accent-gold": "#9A6E10",
+    "fill-2": "#F5F5F6",
+    "fill-3": "#E8E8EA",
+    "accent-brand": "#111113",
+    "accent-gold": "#F6C80A",
     "accent-orange": "#C2410C",
     "accent-green": "#15803D",
     "accent-red": "#DC2626",
@@ -122,14 +96,14 @@ export const COLORS: ColorScheme = {
     "accent-pink": "#DB2777",
   },
   DARK: {
-    "text-primary": "#FAFAF8",
-    "text-secondary": "rgba(250, 250, 248, 0.60)",
-    "fill-0": "#1C1A17",
-    "fill-1": "#100F0D",
-    "fill-2": "#171614",
-    "fill-3": "#2D2B27",
-    "accent-brand": "#FAFAF8",
-    "accent-gold": "#EFC463",
+    "text-primary": "#F7F7F8",
+    "text-secondary": "rgba(247, 247, 248, 0.60)",
+    "fill-0": "#19191B",
+    "fill-1": "#0B0B0C",
+    "fill-2": "#131314",
+    "fill-3": "#2A2A2D",
+    "accent-brand": "#F7F7F8",
+    "accent-gold": "#F6C80A",
     "accent-orange": "#FB923C",
     "accent-green": "#4ADE80",
     "accent-red": "#F87171",

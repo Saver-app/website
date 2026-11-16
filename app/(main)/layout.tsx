@@ -1,8 +1,6 @@
 import {
   BODY_FONT,
   DISCORD_INVITE_URL,
-  DISPLAY_FONT,
-  DISPLAY_HEAVY_FONT,
   IS_WAITLIST_ENABLED,
   PATREON_URL,
   REDDIT_URL,
@@ -51,7 +49,7 @@ export default function RootLayout({
     <html
       lang="en"
       data-theme={THEME}
-      className={`${BODY_FONT.variable} ${DISPLAY_FONT.variable} ${DISPLAY_HEAVY_FONT.variable}`}
+      className={BODY_FONT.variable}
     >
       <head>
         <link rel="icon" href="/favicon.png" type="image/png" sizes="48x48" />

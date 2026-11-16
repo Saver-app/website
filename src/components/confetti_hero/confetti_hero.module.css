@@ -10,22 +10,30 @@
   overflow: clip;
   border-radius: var(--panel-radius);
   background: var(--surface-dark);
-  color: #fafaf7;
+  color: var(--surface-dark-text);
+
+  --focus-ring: var(--color-accent-gold);
 }
 
+/*
+  Sits behind the phone inside the media slot, so the pieces keep their place
+  around it wherever the slot ends up: beside the copy, or below it once the
+  layout stacks.
+*/
 .decorations {
   position: absolute;
-  z-index: 1;
+  z-index: 0;
   inset: 0;
   pointer-events: none;
 }
 
+/* Offsets and size are unitless multiples of the phone's width. */
 .piece {
   position: absolute;
-  top: var(--piece-top);
-  left: var(--piece-left);
-  width: var(--piece-width);
-  height: var(--piece-width);
+  top: calc(50% + var(--piece-dy) * var(--hero-phone-width));
+  left: calc(50% + var(--piece-dx) * var(--hero-phone-width));
+  width: calc(var(--piece-size) * var(--hero-phone-width));
+  height: calc(var(--piece-size) * var(--hero-phone-width));
   transform: translate(-50%, -50%) rotate(var(--piece-rotation));
   transform-origin: center;
 }
@@ -72,9 +80,9 @@
   font-family: var(--font-heavy);
   font-size: clamp(44px, 5.2cqw, 64px);
   font-weight: 800;
-  line-height: 1.02;
-  letter-spacing: -0.038em;
-  color: #fafaf7;
+  line-height: 1.03;
+  letter-spacing: -0.03em;
+  color: var(--surface-dark-text);
 }
 
 .layoutWithMedia .content h1 {
@@ -85,7 +93,7 @@
 .content > p {
   max-width: 560px;
   margin-top: 22px;
-  color: rgb(250 250 247 / 0.66);
+  color: rgb(255 255 255 / 0.68);
   font-size: 18px;
   line-height: 1.55;
   text-wrap: pretty;
@@ -96,6 +104,13 @@
 }
 
 .media {
+  /*
+    Width of the phone this slot is built for, at half its height. The pieces
+    are placed in multiples of it and the page sizes its phone from it, so the
+    two cannot drift apart.
+  */
+  --hero-phone-width: 260px;
+
   position: relative;
   width: 100%;
   height: 556px;
@@ -105,13 +120,18 @@
   align-self: end;
 }
 
+.media > :not(.decorations) {
+  position: relative;
+  z-index: 1;
+}
+
 /*
-  Only meaningful while the copy and the media are side by side - once the
-  layout stacks there is no column gap, and the pieces that have a stacked
-  placement are moved rather than dropped.
+  While the copy and the media are side by side and the panel is narrow, the
+  column beside the phone is too tight for the floating pieces: they would run
+  into the copy. The ones tucked behind the phone stay.
 */
-@container root (821px <= width < 1200px) {
-  .piece[data-zone="gutter"] {
+@container root (821px <= width < 1120px) {
+  .piece[data-depth="far"] {
     display: none;
   }
 }
@@ -150,29 +170,13 @@
   }
 
   .media {
+    --hero-phone-width: 225px;
+
     height: 500px;
   }
 }
 
 @container root (width < 821px) {
-  /*
-    The stacked copy runs nearly edge to edge, so the desktop placements land
-    on top of the title. Swapping the set here rather than from a matchMedia
-    listener keeps it tied to the same breakpoint the layout stacks at - the
-    two used to disagree by the width of the scrollbar, which showed the
-    desktop confetti over the stacked headline.
-  */
-  .piece[data-placement="desktop"] {
-    display: none;
-  }
-
-  .piece[data-placement="both"] {
-    top: var(--piece-top-mobile);
-    left: var(--piece-left-mobile);
-    width: var(--piece-width-mobile);
-    height: var(--piece-width-mobile);
-  }
-
   .panel {
     min-height: 0;
     border-radius: 18px;
@@ -223,7 +227,14 @@
     margin-top: 22px;
   }
 
+  /*
+    The stacked hero gives the media a 300px row, so the phone comes down to
+    that height here rather than at 768px - in between it would still be 450px
+    tall, centred in the short row, and overlap the copy above it.
+  */
   .media {
+    --hero-phone-width: 150px;
+
     height: 300px;
   }
 }
