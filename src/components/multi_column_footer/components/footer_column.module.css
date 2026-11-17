@@ -29,3 +29,23 @@
     color: var(--color-text-primary);
   }
 }
+
+/*
+  On a phone each link becomes a 44px row. As bare 17px lines 11px apart they
+  were easy to miss, and easy to hit the neighbour instead.
+*/
+@container root (width < 768px) {
+  .footerColumn {
+    gap: 4px;
+  }
+
+  .links {
+    gap: 0;
+  }
+
+  .link {
+    display: flex;
+    min-height: 44px;
+    align-items: center;
+  }
+}

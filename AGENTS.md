@@ -8,7 +8,7 @@ Guidance for agentic coding assistants working in this repository.
 - Build mode: static export (`output: "export"` in `next.config.ts`).
 - Styling: CSS Modules (`*.module.css`) plus global styles in `src/global.css`.
 - Linting: ESLint flat config in `eslint.config.mjs` (Next Core Web Vitals preset).
-- Testing: no dedicated test suite checked in yet.
+- Testing: Playwright, mobile layout and navigation (`npm test`).
 
 ## Mandatory Rules Discovery
 - Checked for Cursor rules in `.cursor/rules/` and `.cursorrules`: none found.
@@ -38,9 +38,9 @@ Guidance for agentic coding assistants working in this repository.
 - Note: `tsconfig.json` has `"strict": false`; still run type check before merging.
 
 ### Tests
-- There is currently no `npm test` script and no committed test files.
-- Playwright is installed as a dev dependency and used by `scripts/take_og_snapshot.mjs`.
-- If you add tests, prefer Playwright and add a `test` script in `package.json`.
+- `npm run build && npm test` runs the Playwright suite in `tests/` against the static export in `out/` (served on port 4319 by `scripts/serve_static_export.mjs`).
+- `tests/mobile.spec.ts` covers phone widths: no sideways scrolling, the burger menu, anchor links, touch-target sizes, and the hero image.
+- Single spec: `npx playwright test tests/mobile.spec.ts`; single test: `npx playwright test -g "menu opens"`; one engine: `--project=mobile-safari`.
 
 ### Single-Test Patterns (when tests are added)
 - Single spec file: `npx playwright test tests/example.spec.ts`
@@ -52,6 +52,7 @@ Guidance for agentic coding assistants working in this repository.
 - Generate OG image snapshot: `npm run take-og-snapshot`
 - Custom snapshot output path: `npm run take-og-snapshot -- public/og-preview.png`
 - Generate favicon from app icon: `npm run generate-favicon`
+- Regenerate the framed phone images in `public/assets/framed`: `npm run generate-device-frames`. Run it after replacing a screenshot in `public/assets`; `npm run build` does it automatically when an input changed. Commit the frames and `scripts/device_frames.lock.json`.
 - Custom icon path: `APP_ICON_PATH=public/app_icon.png npm run generate-favicon`
 
 ## Architecture and Routing Conventions

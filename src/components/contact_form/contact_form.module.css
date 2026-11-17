@@ -129,8 +129,10 @@
   transition: opacity 100ms ease, transform 100ms ease;
 }
 
-.submitButton:hover {
-  opacity: 0.72;
+@media (hover: hover) {
+  .submitButton:hover {
+    opacity: 0.72;
+  }
 }
 
 .submitButton:active {
@@ -205,8 +207,9 @@
 }
 
 @container root (width < 600px) {
+  /* Full width on a phone: the page gutter is margin enough, and the fields gain 28px. */
   .card {
-    width: calc(100% - 28px);
+    width: 100%;
     padding: 24px 20px;
     border-radius: var(--radius-xl);
   }
@@ -229,6 +232,17 @@
 
   .alternative {
     flex-direction: column;
+    align-items: center;
+    gap: 0;
+  }
+
+  .alternativeLinks {
+    align-items: center;
+  }
+
+  .alternativeLinks a {
+    display: inline-flex;
+    min-height: 44px;
     align-items: center;
   }
 }

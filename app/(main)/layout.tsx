@@ -38,6 +38,11 @@ export const metadata = {
 export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1.0,
+  /* Tints the browser's own bars on a phone to match the page in either theme. */
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "#ffffff" },
+    { media: "(prefers-color-scheme: dark)", color: "#0b0b0c" },
+  ],
 };
 
 export default function RootLayout({
@@ -66,6 +71,7 @@ export default function RootLayout({
                   <AppIcon
                     src="/app_view/saver_app_icon_dark_128.webp"
                     size={36}
+                    loading="eager"
                   />
                 }
                 appName="Saver"

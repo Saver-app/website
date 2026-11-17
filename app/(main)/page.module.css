@@ -748,8 +748,10 @@
     opacity var(--duration) var(--ease-out);
 }
 
-.planAction:hover {
-  opacity: 0.86;
+@media (hover: hover) {
+  .planAction:hover {
+    opacity: 0.86;
+  }
 }
 
 .planAction:active {
@@ -1101,7 +1103,7 @@
   .heroNote {
     margin-top: 10px;
     color: rgb(255 255 255 / 0.6);
-    font-size: 12px;
+    font-size: 13px;
     line-height: 1.35;
   }
 
@@ -1128,18 +1130,25 @@
     grid-template-columns: 1fr;
   }
 
+  /*
+    A 44px target around a 21px line of text. The margins take back what the
+    extra height adds, so the link sits where it did.
+  */
   .spaceStoryHeader .spaceLink {
     grid-column: 1;
     justify-self: start;
-    margin-top: 16px;
+    min-height: 44px;
+    margin-top: 5px;
+    margin-bottom: -11px;
   }
 
   .spaceStoryHeader h2 {
     font-size: clamp(27px, 7.6cqw, 34px);
   }
 
+  /* Body copy is not set smaller on a phone than on a desktop. */
   .spaceStoryHeader > p {
-    font-size: 14px;
+    font-size: 15px;
   }
 
   .spaceGrid {
@@ -1183,7 +1192,7 @@
   .captureRoute dd {
     /* Keeps the description hanging under the title, clear of the icon tile. */
     padding-left: 46px;
-    font-size: 14px;
+    font-size: 15px;
   }
 
   .captureMedia {
@@ -1209,6 +1218,16 @@
     font-size: 22px;
   }
 
+  /*
+    The panel's padding is 18px here, so the wider card's -16px margin left a
+    2px sliver of panel either side. This keeps a clear 8px frame and the
+    card's text still lines up with the notes below it.
+  */
+  .spaceNoteLead {
+    margin: 0 -10px;
+    padding: 18px 10px 20px;
+  }
+
   .editorialHeader {
     margin-bottom: 36px;
   }
@@ -1222,7 +1241,7 @@
 
   .platformList {
     grid-template-columns: 1fr;
-    gap: 12px;
+    gap: 10px;
   }
 
   .platformItem,
@@ -1230,29 +1249,53 @@
     grid-column: auto;
   }
 
-  /* A bare stack of five reads as one long run, so contain each on mobile. */
+  /*
+    A bare stack of five reads as one long run, so each is contained on a
+    phone, and laid out as a row: tile on the left, copy beside it, the arrow
+    at the far edge. With the tile above the copy the five links took a screen
+    and a half.
+  */
   .platformLink {
-    gap: 14px;
-    padding: 18px;
+    display: grid;
+    grid-template-columns: 38px minmax(0, 1fr);
+    gap: 6px 14px;
+    align-items: start;
+    padding: 16px;
     border: 1px solid var(--border-hairline);
     border-radius: var(--radius-sm);
     background: var(--surface-muted);
   }
 
   .platformCopy h3 {
+    justify-content: space-between;
     margin-top: 0;
+  }
+
+  .platformCopy p {
+    margin-top: 5px;
   }
 
   .mobilePlatformNote {
     display: block;
+    grid-column: 2;
     color: var(--color-text-secondary);
-    font-size: 12px;
+    font-size: 13px;
     line-height: 1.4;
+  }
+
+  /* 12px back on each side for the copy; the card sits in a 16px gutter already. */
+  .plan {
+    padding: 26px 22px 24px;
   }
 
   .planDescription,
   .planPrice {
     min-height: auto;
+  }
+
+  /* The price block no longer has its desktop min-height to hold the button off. */
+  .planAction {
+    margin-top: 18px;
   }
 
   .billingNote {
@@ -1267,6 +1310,11 @@
     grid-template-columns: 1fr;
     padding: 54px 24px;
     border-radius: 18px;
+  }
+
+  /* Same scale as the section headings; at 38px it outsized the page title. */
+  .closingPanel h2 {
+    font-size: clamp(32px, 9.2cqw, 42px);
   }
 
   .closingActions {
@@ -1319,5 +1367,33 @@
   .platformList,
   .pricing {
     width: 100%;
+  }
+
+  /*
+    Four in a line do not fit here, and three over one left "Habits" on its
+    own. Two pairs read as a set.
+  */
+  .spaceContents {
+    display: grid;
+    grid-template-columns: repeat(2, max-content);
+    gap: 10px 28px;
+  }
+}
+
+/*
+  On the narrowest phones the two phones kept their size while the field
+  shrank, so one covered nearly half of the other. Scaled down together they
+  overlap about as much as they do at 375px.
+*/
+@container root (width < 360px) {
+  .spaceStoryPhoneSwitcher {
+    width: 146px;
+    height: 300px;
+  }
+
+  .spaceStoryPhoneSpace {
+    width: 132px;
+    height: 271px;
+    transform: translateY(-22px) rotate(-2.5deg);
   }
 }

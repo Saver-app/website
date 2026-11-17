@@ -1,8 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useState, useEffect } from "react";
-import { Icon } from "@/components/icon/icon";
+import { useState, useEffect, useRef } from "react";
 import styles from "./navbar.module.css";
 
 interface NavbarProps {
@@ -17,6 +16,35 @@ interface NavbarProps {
   mobileAction?: React.ReactNode;
 }
 
+const MOBILE_MENU_ID = "navbar-mobile-menu";
+
+/*
+  Drawn here rather than set in the icon font: this is the only way into the
+  navigation on a phone, so it should not wait for a font from another host,
+  or turn into the word "menu" where that font is blocked.
+*/
+function MenuGlyph({ open }: { open: boolean }) {
+  return (
+    <svg
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2.5"
+      strokeLinecap="round"
+      aria-hidden="true"
+      focusable="false"
+    >
+      {open ? (
+        <path d="M6.5 6.5l11 11M17.5 6.5l-11 11" />
+      ) : (
+        <path d="M3.75 6.75h16.5M3.75 12h16.5M3.75 17.25h16.5" />
+      )}
+    </svg>
+  );
+}
+
 export function Navbar({
   icon,
   appName,
@@ -26,6 +54,8 @@ export function Navbar({
 }: NavbarProps) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const menuButtonRef = useRef<HTMLButtonElement>(null);
 
   const closeMenu = () => setMobileMenuOpen(false);
 
@@ -50,12 +80,49 @@ export function Navbar({
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  /*
+    The open menu covers part of the page without blocking the rest of it, so
+    it gets the two ways out people try first: Escape, and a tap anywhere else.
+  */
+  useEffect(() => {
+    if (!mobileMenuOpen) {
+      return;
+    }
+
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        setMobileMenuOpen(false);
+        menuButtonRef.current?.focus();
+      }
+    };
+
+    const handlePointerDown = (event: PointerEvent) => {
+      const container = containerRef.current;
+
+      if (
+        container &&
+        event.target instanceof Node &&
+        !container.contains(event.target)
+      ) {
+        setMobileMenuOpen(false);
+      }
+    };
+
+    document.addEventListener("keydown", handleKeyDown);
+    document.addEventListener("pointerdown", handlePointerDown);
+
+    return () => {
+      document.removeEventListener("keydown", handleKeyDown);
+      document.removeEventListener("pointerdown", handlePointerDown);
+    };
+  }, [mobileMenuOpen]);
+
   const isSolid = isScrolled || mobileMenuOpen;
 
   return (
     <>
       <div className={styles.spacer}></div>
-      <div className={styles.navbarContainer}>
+      <div className={styles.navbarContainer} ref={containerRef}>
         <nav className={styles.navbar}>
           <div className={`${styles.content} ${isSolid ? styles.solid : ""}`}>
             <Link className={styles.appIdentity} href="/">
@@ -85,22 +152,21 @@ export function Navbar({
             <div className={styles.action}>{action}</div>
 
             <button
+              ref={menuButtonRef}
+              type="button"
               className={styles.mobileMenuButton}
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              aria-label="Toggle menu"
+              aria-label="Menu"
               aria-expanded={mobileMenuOpen}
+              aria-controls={mobileMenuOpen ? MOBILE_MENU_ID : undefined}
             >
-              <Icon
-                name={mobileMenuOpen ? "close" : "menu"}
-                filled
-                size="medium"
-              />
+              <MenuGlyph open={mobileMenuOpen} />
             </button>
           </div>
         </nav>
 
         {mobileMenuOpen && (
-          <div className={styles.mobileMenu}>
+          <div className={styles.mobileMenu} id={MOBILE_MENU_ID}>
             <ul className={styles.mobileMenuLinks}>
               {links?.map((link) => {
                 const href = link.href.startsWith("#")

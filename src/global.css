@@ -13,6 +13,9 @@
 
 html {
   scroll-behavior: smooth;
+  /* Stops iOS Safari from enlarging some text blocks when a phone is turned sideways. */
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
 }
 
 :root {

@@ -16,8 +16,11 @@
       background-color var(--duration) var(--ease-out);
   }
 
-  &:hover {
-    opacity: 0.84;
+  /* Only where a pointer can hover: after a tap, :hover would stay on the button. */
+  @media (hover: hover) {
+    &:hover {
+      opacity: 0.84;
+    }
   }
 
   &:active {

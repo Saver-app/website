@@ -209,16 +209,17 @@
   }
 
   /*
-    Sized so the second sentence of a two-sentence title still clears the
-    stacked line box on a phone; it only wraps again below ~340px.
+    Sized so the title fills the panel on a phone, on the same scale as the
+    section headings below it, while "Bookmarks, tasks," still fits one line
+    and the second sentence stays on its own down to 320px.
   */
   .layoutWithMedia .content h1 {
-    font-size: clamp(28px, 8.2cqw, 36px);
+    font-size: clamp(28px, 9.4cqw, 36px);
   }
 
   .content > p {
     margin-top: 16px;
-    font-size: 15px;
+    font-size: 16px;
     line-height: 1.5;
   }
 

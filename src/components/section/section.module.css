@@ -82,8 +82,13 @@
     padding-bottom: min(var(--section-padding-bottom, 20px), 52px);
   }
 
+  /*
+    With the padding either side this leaves 108px between stacked sections,
+    about twice the gap under the panels, which is the ratio the desktop has.
+    At 60px the same gaps came to 132px against 52px.
+  */
   .section + .section {
-    margin-top: 60px;
+    margin-top: 36px;
   }
 
   .header {

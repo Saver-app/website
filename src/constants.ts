@@ -38,9 +38,16 @@ export const BODY_FONT = Figtree({
  * Custom fonts for 'whimsical' and 'cursive' font styles.
  * Default system font is used for all other font styles.
  * See https://nextjs.org/docs/app/getting-started/fonts#google-fonts
+ *
+ * Not preloaded: no page sets a title in either style, and a preload fetches
+ * both files (about 117 kB) ahead of the scripts on every page. They still
+ * load on demand wherever a component asks for the style.
  */
-export const WHIMSICAL_FONT = Caveat({ subsets: ["latin"] });
-export const CURSIVE_FONT = Dancing_Script({ subsets: ["latin"] });
+export const WHIMSICAL_FONT = Caveat({ subsets: ["latin"], preload: false });
+export const CURSIVE_FONT = Dancing_Script({
+  subsets: ["latin"],
+  preload: false,
+});
 
 export const MATERIAL_SYMBOLS = [
   "send",

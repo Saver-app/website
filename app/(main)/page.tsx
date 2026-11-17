@@ -1,6 +1,6 @@
 import { DownloadActionButton } from "@/components/download_action_button/download_action_button";
 import { ConfettiHero } from "@/components/confetti_hero/confetti_hero";
-import { Hero } from "@/components/hero/hero";
+import { DeviceScreenshot } from "@/components/device_screenshot/device_screenshot";
 import { Icon } from "@/components/icon/icon";
 import { PlatformActionButton } from "@/components/platform_action_button/platform_action_button";
 import { Section } from "@/components/section/section";
@@ -16,12 +16,30 @@ import styles from "./page.module.css";
 
 import DiscordLogo from "@/public/app_view/discord_logo.svg";
 
+/*
+  Frames in /public/assets/framed: each screenshot already drawn into its
+  bezel, at a few widths. They are generated from the files of the same name in
+  /public/assets. A build refreshes them when a screenshot changes; while
+  developing, run `npm run generate-device-frames` after replacing one.
+*/
 const SCREENSHOTS = {
-  tasks: "/assets/saver_tasks.webp",
-  shareSheet: "/assets/saver_share_sheet.webp",
-  shareExtension: "/assets/saver_share_extension.webp",
-  spaces: "/assets/saver_spaces.webp",
-  habits: "/assets/saver_habits.webp",
+  tasks: "saver_tasks",
+  shareSheet: "saver_share_sheet",
+  shareExtension: "saver_share_extension",
+  spaces: "saver_spaces",
+  habits: "saver_habits",
+} as const;
+
+/*
+  How wide each phone is drawn, so the browser can pick the smallest frame that
+  is still sharp. The breakpoints are the ones the phone slots use in
+  page.module.css and confetti_hero.module.css.
+*/
+const PHONE_SIZES = {
+  hero: "(min-width: 1000px) 260px, (min-width: 821px) 225px, 150px",
+  spaceSwitcher: "(min-width: 900px) 240px, (min-width: 768px) 248px, 168px",
+  spaceContents: "(min-width: 900px) 218px, (min-width: 768px) 226px, 152px",
+  capture: "(min-width: 900px) 210px, (min-width: 768px) 188px, 142px",
 } as const;
 
 /*
@@ -313,10 +331,11 @@ export default function Page() {
         }
         media={
           <div className={styles.heroProductPreview}>
-            <Hero.Image
-              src={SCREENSHOTS.tasks}
+            <DeviceScreenshot
+              name={SCREENSHOTS.tasks}
               alt="Saver showing organized lists and tasks"
-              bezel="iPhone 17 Pro Silver"
+              sizes={PHONE_SIZES.hero}
+              priority
             />
           </div>
         }
@@ -351,21 +370,19 @@ export default function Page() {
               <div
                 className={`${styles.spaceStoryPhone} ${styles.spaceStoryPhoneSpace}`}
               >
-                <Hero.Image
-                  src={SCREENSHOTS.habits}
+                <DeviceScreenshot
+                  name={SCREENSHOTS.habits}
                   alt="A Saver space holding habits with their weekly streaks"
-                  bezel="iPhone 17 Pro Silver"
-                  loading="lazy"
+                  sizes={PHONE_SIZES.spaceContents}
                 />
               </div>
               <div
                 className={`${styles.spaceStoryPhone} ${styles.spaceStoryPhoneSwitcher}`}
               >
-                <Hero.Image
-                  src={SCREENSHOTS.spaces}
+                <DeviceScreenshot
+                  name={SCREENSHOTS.spaces}
                   alt="Saver showing Personal, Work, Travel Plans, and Home spaces"
-                  bezel="iPhone 17 Pro Silver"
-                  loading="lazy"
+                  sizes={PHONE_SIZES.spaceSwitcher}
                 />
               </div>
             </div>
@@ -464,21 +481,19 @@ export default function Page() {
               <div
                 className={`${styles.capturePhone} ${styles.capturePhoneShare}`}
               >
-                <Hero.Image
-                  src={SCREENSHOTS.shareSheet}
+                <DeviceScreenshot
+                  name={SCREENSHOTS.shareSheet}
                   alt="An iPhone share sheet offering Saver for a Hakone travel article"
-                  bezel="iPhone 17 Pro Silver"
-                  loading="lazy"
+                  sizes={PHONE_SIZES.capture}
                 />
               </div>
               <div
                 className={`${styles.capturePhone} ${styles.capturePhoneSave}`}
               >
-                <Hero.Image
-                  src={SCREENSHOTS.shareExtension}
+                <DeviceScreenshot
+                  name={SCREENSHOTS.shareExtension}
                   alt="Saver saving the Hakone article as a bookmark in the Japan Trip space"
-                  bezel="iPhone 17 Pro Silver"
-                  loading="lazy"
+                  sizes={PHONE_SIZES.capture}
                 />
               </div>
             </div>

@@ -100,8 +100,10 @@
     transform var(--duration-fast) var(--ease-out);
 }
 
-.downloadLink:hover {
-  opacity: 0.82;
+@media (hover: hover) {
+  .downloadLink:hover {
+    opacity: 0.82;
+  }
 }
 
 .downloadLink:active {
@@ -138,11 +140,11 @@
   .storeLabel {
     grid-column: 2;
     justify-self: start;
+    min-height: 44px;
   }
-}
 
-@container root (width < 480px) {
+  /* Lines the list up with the page title instead of sitting inside it. */
   .downloadPage {
-    width: calc(100% - 24px);
+    width: 100%;
   }
 }

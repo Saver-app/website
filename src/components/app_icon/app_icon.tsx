@@ -12,6 +12,8 @@ interface AppIconProps {
   mask?: boolean;
   size?: number;
   filter?: "none" | "grayscale";
+  /** "eager" for an icon that is on screen straight away, such as the navbar's. */
+  loading?: "eager" | "lazy";
 }
 
 const PLACEHOLDER_SRC = "/app_view/icon_placeholder.png";
@@ -22,17 +24,25 @@ export function AppIcon({
   mask = false,
   size = 40,
   filter = "none",
+  loading = "lazy",
 }: AppIconProps) {
   const theme = useTheme();
+
+  /*
+    An icon with no per-theme variant is the same picture either way, so it can
+    be part of the static HTML instead of appearing once the scripts have run.
+    The placeholder is left out: its tint is read from the page in the browser.
+  */
+  const isSameInEveryTheme = srcset === undefined && src !== PLACEHOLDER_SRC;
 
   /**
    * The theme is null during static-site generation
    */
-  if (theme === null) {
+  if (theme === null && !isSameInEveryTheme) {
     return null;
   }
 
-  const targetSrc = findSrcForTheme(src, srcset, theme);
+  const targetSrc = theme === null ? src : findSrcForTheme(src, srcset, theme);
   const accentBrandColor = getAccentBrandColor();
 
   let filterClassName;
@@ -54,7 +64,13 @@ export function AppIcon({
         mask ? styles.mask : ""
       } ${filterClassName}`}
     >
-      <Image src={targetSrc} alt="App Icon" width={size} height={size} />
+      <Image
+        src={targetSrc}
+        alt="App Icon"
+        width={size}
+        height={size}
+        loading={loading}
+      />
 
       {targetSrc === PLACEHOLDER_SRC &&
         filter === "none" &&

@@ -65,6 +65,29 @@
   }
 }
 
+/*
+  Between a phone and a small laptop the brand and four columns do not fit on
+  one row: the columns were squeezed until "Personal Data Request" broke over
+  three lines. The brand goes above and the columns share the full width.
+*/
+@container root (768px <= width < 960px) {
+  .main {
+    flex-direction: column;
+    gap: 40px;
+  }
+
+  .brand {
+    max-width: 420px;
+  }
+
+  .linkColumns {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 32px;
+    width: 100%;
+  }
+}
+
 @container root (width < 768px) {
   .main {
     flex-direction: column;
@@ -85,8 +108,26 @@
 
   .footnotes {
     flex-direction: column;
-    gap: 10px;
+    gap: 0;
     padding: 22px 8px 0;
     text-align: center;
+  }
+
+  /*
+    The legal links wrap here, and as running text that left a separator
+    hanging at the end of the first line. They become a centred row of 44px
+    targets instead; the zero font size takes the separators out without
+    touching the markup.
+  */
+  .footnoteTrailing > span {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    font-size: 0;
+  }
+
+  .footnoteTrailing a {
+    padding: 12px 10px;
+    font-size: 13px;
   }
 }

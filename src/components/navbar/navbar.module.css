@@ -42,8 +42,15 @@
   transition: opacity var(--duration-fast) var(--ease-out);
 }
 
-.appIdentity:hover {
-  opacity: 0.7;
+/*
+  Hover styles sit behind (hover: hover) throughout this file. A touch screen
+  keeps :hover on the last thing tapped, so without the guard the burger stays
+  shaded after it is used and links stay dimmed.
+*/
+@media (hover: hover) {
+  .appIdentity:hover {
+    opacity: 0.7;
+  }
 }
 
 .appIconContainer {
@@ -77,8 +84,10 @@
       background-color var(--duration-fast) var(--ease-out);
   }
 
-  a:hover {
-    color: var(--color-text-primary);
+  @media (hover: hover) {
+    a:hover {
+      color: var(--color-text-primary);
+    }
   }
 }
 
@@ -90,10 +99,15 @@
   border-radius: var(--radius-sm);
 }
 
+/*
+  44px is the smallest target a thumb hits reliably. The glyph is still 24px,
+  and the negative margin keeps it where the 40px button had it.
+*/
 .mobileMenuButton {
   display: none;
-  width: 40px;
-  height: 40px;
+  width: 44px;
+  height: 44px;
+  margin-right: -2px;
   background: none;
   border: none;
   padding: 0;
@@ -104,7 +118,18 @@
   transition: background-color var(--duration-fast) var(--ease-out);
 }
 
-.mobileMenuButton:hover {
+@media (hover: hover) {
+  .mobileMenuButton:hover {
+    background-color: color-mix(
+      in srgb,
+      var(--color-text-primary) 6%,
+      transparent
+    );
+  }
+}
+
+.mobileMenuButton:active,
+.mobileMenuButton[aria-expanded="true"] {
   background-color: color-mix(
     in srgb,
     var(--color-text-primary) 6%,
@@ -112,20 +137,31 @@
   );
 }
 
+/*
+  Solid, not frosted. The bar above already owns the backdrop blur, and a
+  second blur nested inside it has nothing to work on in Chromium, so the hero
+  headline showed through the menu as a ghost behind the links.
+
+  On a phone held sideways the menu is taller than the screen. It is capped at
+  the space under the bar and scrolls inside that, so the last button can
+  always be reached; `dvh` follows the browser's own bars as they come and go.
+*/
 .mobileMenu {
   position: absolute;
   top: 100%;
   left: 0;
   right: 0;
+  max-height: calc(100vh - 64px);
+  max-height: calc(100dvh - 64px);
   margin-top: 0;
   padding: 10px 20px 18px;
   display: flex;
   flex-direction: column;
   gap: 10px;
+  overflow-y: auto;
+  overscroll-behavior: contain;
   border-bottom: 1px solid var(--border-hairline);
-  background-color: color-mix(in srgb, var(--color-fill-1) 98%, transparent);
-  backdrop-filter: blur(20px) saturate(180%);
-  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  background-color: var(--color-fill-1);
   box-shadow: 0 16px 30px rgb(16 16 20 / 0.08);
   animation: slideDown 0.2s var(--ease-out);
   pointer-events: auto;
@@ -143,6 +179,8 @@
 }
 
 .mobileMenuLinks {
+  /* Stays its own height when the menu has to scroll. */
+  flex: none;
   list-style: none;
   display: flex;
   flex-direction: column;
@@ -157,7 +195,17 @@
     transition: background-color var(--duration-fast) var(--ease-out);
   }
 
-  a:hover {
+  @media (hover: hover) {
+    a:hover {
+      background-color: color-mix(
+        in srgb,
+        var(--color-text-primary) 5%,
+        transparent
+      );
+    }
+  }
+
+  a:active {
     background-color: color-mix(
       in srgb,
       var(--color-text-primary) 5%,
@@ -167,21 +215,36 @@
 }
 
 .mobileMenuActions {
+  flex: none;
   display: flex;
   flex-direction: column;
   gap: 8px;
   border-top: 1px solid var(--border-hairline);
   padding-top: 14px;
 
-  > a {
+  /* As tall as the link rows above, so every row in the menu taps the same. */
+  > a:link,
+  > a:visited {
+    display: flex;
     width: 100%;
+    min-height: 46px;
+    align-items: center;
+    justify-content: center;
     text-align: center;
   }
 }
 
 @container root (width < 768px) {
+  /*
+    Solid on a phone. The panels run nearly edge to edge here, so through a
+    see-through bar a dark one turned the whole bar grey with the page's white
+    margins showing either side, and its text read through the logo.
+  */
   .navbarContainer {
     padding: 0 16px;
+    background: var(--color-fill-1);
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
   }
 
   .spacer {
@@ -193,6 +256,10 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+  }
+
+  .appIdentity {
+    min-height: 44px;
   }
 
   .appName {

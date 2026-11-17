@@ -9,12 +9,15 @@
   },
   "scripts": {
     "dev": "next dev -H 0.0.0.0",
+    "prebuild": "node ./scripts/generate_device_frames.mjs --if-stale",
     "build": "next build",
     "postbuild": "node ./scripts/prune_static_export.mjs",
     "start": "next start",
     "lint": "eslint ./app ./src --ext .ts,.tsx,.js,.jsx",
+    "test": "playwright test --trace off",
     "take-og-snapshot": "node ./scripts/take_og_snapshot.mjs",
     "generate-favicon": "node ./scripts/generate_favicon.mjs",
+    "generate-device-frames": "node ./scripts/generate_device_frames.mjs",
     "app-view": "node ./bin/app-view.mjs"
   },
   "repository": {
