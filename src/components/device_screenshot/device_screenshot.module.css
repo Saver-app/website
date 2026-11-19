@@ -18,7 +18,10 @@
 }
 
 /* The -9px matches the iPhone 17 Pro bezels' shadow offset in Hero.Image. */
-.shadow {
+.deviceScreenshot::before {
+  content: "";
+  aspect-ratio: 592 / 68;
+  background: url("/app_view/iphone_shadow.png") center / contain no-repeat;
   position: absolute;
   z-index: 0;
   bottom: -9px;

@@ -1,5 +1,4 @@
 /* eslint-disable @next/next/no-img-element */
-import Image from "next/image";
 
 import styles from "./device_screenshot.module.css";
 
@@ -42,15 +41,6 @@ export function DeviceScreenshot({
 
   return (
     <div className={styles.deviceScreenshot}>
-      <div className={styles.shadow}>
-        <Image
-          src="/app_view/iphone_shadow.png"
-          alt=""
-          width={592}
-          height={68}
-          style={{ width: "100%", height: "auto" }}
-        />
-      </div>
       <img
         className={styles.image}
         src={`${FRAME_DIRECTORY}/${name}_${FRAME_WIDTHS[1]}w.webp`}

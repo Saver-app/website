@@ -1,4 +1,3 @@
-import Image from "next/image";
 import type { CSSProperties, ReactNode } from "react";
 
 import styles from "./confetti_hero.module.css";
@@ -144,6 +143,7 @@ export function ConfettiHero({
               <div className={styles.decorations} aria-hidden="true">
                 {DECORATIONS.map((decoration) => {
                   const pieceStyle = {
+                    backgroundImage: `url("${decoration.src}")`,
                     "--piece-dx": decoration.dx,
                     "--piece-dy": decoration.dy,
                     "--piece-size": decoration.size,
@@ -157,14 +157,7 @@ export function ConfettiHero({
                       data-depth={decoration.depth}
                       key={decoration.src}
                       style={pieceStyle}
-                    >
-                      <Image
-                        src={decoration.src}
-                        alt=""
-                        width={110}
-                        height={110}
-                      />
-                    </span>
+                    />
                   );
                 })}
               </div>

@@ -127,14 +127,6 @@ export default function RootLayout({
                 footnoteLeading={<span>© 2026 Paul Gerling. All rights reserved.</span>}
                 footnoteTrailing={
                   <span>
-                    <a href="/privacy" style={{ textDecoration: "none", color: "inherit" }}>Privacy</a>
-                    {" · "}
-                    <a href="/terms" style={{ textDecoration: "none", color: "inherit" }}>Terms</a>
-                    {" · "}
-                    <a href="/return-policy" style={{ textDecoration: "none", color: "inherit" }}>Refunds & Withdrawal</a>
-                    {" · "}
-                    <a href="/impressum" style={{ textDecoration: "none", color: "inherit" }}>Legal Notice</a>
-                    {" · "}
                     <a href="/credits" style={{ textDecoration: "none", color: "inherit" }}>Credits</a>
                   </span>
                 }
