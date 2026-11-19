@@ -3,7 +3,7 @@ import { createPageMetadata } from "@/lib/site_metadata";
 import type { Metadata } from "next";
 
 export const metadata = createPageMetadata({
-  title: "Credits | Saver",
+  title: "App Store Screenshot Credits and Licenses | Saver",
   description: "Credits and third-party attributions for Saver.",
   path: "/credits",
 }) satisfies Metadata;

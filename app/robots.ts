@@ -9,7 +9,7 @@ export default function robots(): MetadataRoute.Robots {
     rules: {
       userAgent: "*",
       allow: "/",
-      disallow: "/open-graph-builder",
+      disallow: ["/open-graph-builder", "/cdn-cgi/l/email-protection"],
     },
     sitemap: `${SITE_URL}/sitemap.xml`,
     host: SITE_URL,

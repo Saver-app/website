@@ -1,7 +1,7 @@
 export default function ImpressumPage() {
   return (
     <>
-      <h1>Legal Notice</h1>
+      <h1>Legal Notice for Saver</h1>
 
       <h2>Information according to § 5 DDG</h2>
 

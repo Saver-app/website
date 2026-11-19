@@ -17,7 +17,7 @@ export function ReleaseNote({ title, publishDate, content }: ReleaseNoteProps) {
   return (
     <Article className={styles.releaseNote}>
       <span className={styles.publishDate}>{formattedDate}</span>
-      <h1 className={styles.title}>{title}</h1>
+      <h2 className={styles.title}>{title}</h2>
       {content}
     </Article>
   );

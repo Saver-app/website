@@ -3,7 +3,7 @@ import { createPageMetadata } from "@/lib/site_metadata";
 import type { Metadata } from "next";
 
 export const metadata = createPageMetadata({
-  title: "Legal Notice | Saver",
+  title: "Legal Notice and Provider Contact Details | Saver",
   description: "Provider and contact information for Saver.",
   path: "/impressum",
 }) satisfies Metadata;

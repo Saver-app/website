@@ -3,7 +3,7 @@ import { createPageMetadata } from "@/lib/site_metadata";
 import type { Metadata } from "next";
 
 export const metadata = createPageMetadata({
-  title: "Privacy Policy | Saver",
+  title: "Saver Privacy Policy and Your Data Rights",
   description:
     "Learn how Saver handles personal data, cookies, device storage, integrations, and privacy rights.",
   path: "/privacy",

@@ -7,10 +7,14 @@ export default function SupportPage() {
     <main className={styles.main}>
       <Section paddingTop={64} paddingBottom={140}>
         <div className={styles.intro}>
-          <h1>How can we help?</h1>
+          <h1>Contact Saver Support</h1>
           <p className={styles.subtitle}>
-            Tell us what is going on and we will reply to the email address you
-            provide.
+            For help with the app, your account, or a subscription, tell us which
+            device you use and what happened. Saver Support will reply by email.
+          </p>
+          <p className={styles.subtitle}>
+            For setup instructions, visit the <a href="https://docs.saver-app.com/getting-started">getting started guide</a>.
+            For a billing issue, include the store where you subscribed.
           </p>
         </div>
 

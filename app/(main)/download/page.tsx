@@ -123,8 +123,8 @@ function DownloadGrid({ options }: { options: readonly DownloadOption[] }) {
 export default function DownloadPage() {
   return (
     <Section
-      title="Choose where you want to use Saver"
-      subtitle="Start with the free mobile app. Add the web app, an extension, reMarkable, or the Discord bot."
+      title="Download Saver for your devices"
+      subtitle="Download Saver on your phone or tablet to use it offline. Sign in on your other devices to open your synced spaces. You can also save links directly from your browser or Discord."
       headingLevel={1}
       headerLayout="editorial"
       paddingTop={70}
