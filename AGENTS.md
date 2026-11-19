@@ -40,6 +40,7 @@ Guidance for agentic coding assistants working in this repository.
 ### Tests
 - `npm run build && npm test` runs the Playwright suite in `tests/` against the static export in `out/` (served on port 4319 by `scripts/serve_static_export.mjs`).
 - `tests/mobile.spec.ts` covers phone widths: no sideways scrolling, the burger menu, anchor links, touch-target sizes, and the hero image.
+- `tests/seo.spec.ts` covers what a search engine reads: each page's title, description, and canonical URL, the home page's structured data, the sitemap, and that icons add no words to a page's text.
 - Single spec: `npx playwright test tests/mobile.spec.ts`; single test: `npx playwright test -g "menu opens"`; one engine: `--project=mobile-safari`.
 
 ### Single-Test Patterns (when tests are added)
@@ -51,7 +52,7 @@ Guidance for agentic coding assistants working in this repository.
 ### Utility Scripts
 - Generate OG image snapshot: `npm run take-og-snapshot`
 - Custom snapshot output path: `npm run take-og-snapshot -- public/og-preview.png`
-- Generate favicon from app icon: `npm run generate-favicon`
+- Generate favicon from app icon: `npm run generate-favicon` (writes `favicon.png`, `favicon.ico`, and `apple-touch-icon.png` into `public/`; commit all three)
 - Regenerate the framed phone images in `public/assets/framed`: `npm run generate-device-frames`. Run it after replacing a screenshot in `public/assets`; `npm run build` does it automatically when an input changed. Commit the frames and `scripts/device_frames.lock.json`.
 - Custom icon path: `APP_ICON_PATH=public/app_icon.png npm run generate-favicon`
 

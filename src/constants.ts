@@ -4,6 +4,7 @@ import { ColorScheme } from "./types/shared";
 export const THEME: "system" | "light" | "dark" = "system";
 
 export const SITE_URL = "https://saver-app.com";
+export const SITE_NAME = "Saver";
 export const APP_ID = "6766563672";
 export const APP_STORE_URL = `https://apps.apple.com/app/id${APP_ID}`;
 export const APP_STORE_DEEP_LINK =
@@ -21,6 +22,11 @@ export const WEB_APP_URL = "https://app.saver-app.com";
 export const DISCORD_INVITE_URL = "https://discord.com/invite/f7BGpQFSeF";
 export const REDDIT_URL = "https://www.reddit.com/r/SaverApp/";
 export const PATREON_URL = "https://www.patreon.com/cw/saverapp";
+export const GITHUB_URL = "https://github.com/Saver-app";
+export const YOUTUBE_URL = "https://www.youtube.com/@saverapp";
+export const INSTAGRAM_URL = "https://www.instagram.com/get.saver/";
+export const X_URL = "https://x.com/SaverAppX";
+export const X_HANDLE = "@SaverAppX";
 
 /**
  * The one typeface of the site, loaded as a variable font so body copy, UI

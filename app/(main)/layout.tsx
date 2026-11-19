@@ -1,12 +1,17 @@
 import {
   BODY_FONT,
   DISCORD_INVITE_URL,
+  GITHUB_URL,
+  INSTAGRAM_URL,
   IS_WAITLIST_ENABLED,
   PATREON_URL,
   REDDIT_URL,
+  SITE_NAME,
   SITE_URL,
   THEME,
   WEB_APP_URL,
+  X_URL,
+  YOUTUBE_URL,
 } from "@/constants";
 import type { Metadata, Viewport } from "next";
 
@@ -27,10 +32,16 @@ import { createPageMetadata } from "@/lib/site_metadata";
 
 export const metadata = {
   metadataBase: new URL(SITE_URL),
+  applicationName: SITE_NAME,
   ...createPageMetadata({
     title: "Saver: Tasks, Bookmarks, and Habits in One Place",
+    /*
+      Kept under about 155 characters, which is where a search result cuts a
+      description off, and written with the words people search an app like
+      this by.
+    */
     description:
-      "Keep bookmarks, tasks, and habits together in one space for a trip, a class, or a project, and send things in from your share sheet, browser, Discord, or reMarkable. Free offline, sync when you need it.",
+      "A to-do list, bookmark manager, and habit tracker in one app. Save from any app or browser, share spaces, and sync across your devices. Free to use offline.",
     path: "/",
   }),
 } satisfies Metadata;
@@ -57,7 +68,8 @@ export default function RootLayout({
       className={BODY_FONT.variable}
     >
       <head>
-        <link rel="icon" href="/favicon.png" type="image/png" sizes="48x48" />
+        <link rel="icon" href="/favicon.png" type="image/png" sizes="96x96" />
+        <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
 
         <ThemeStyle />
         <MaterialSymbolsLink />
@@ -168,10 +180,10 @@ export default function RootLayout({
                 <MultiColumnFooter.Column
                   title="Follow Us"
                   links={[
-                    { label: "GitHub", href: "https://github.com/Saver-app", external: true },
-                    { label: "YouTube", href: "https://www.youtube.com/@saverapp", external: true },
-                    { label: "Instagram", href: "https://www.instagram.com/get.saver/", external: true },
-                    { label: "Twitter", href: "https://x.com/SaverAppX", external: true },
+                    { label: "GitHub", href: GITHUB_URL, external: true },
+                    { label: "YouTube", href: YOUTUBE_URL, external: true },
+                    { label: "Instagram", href: INSTAGRAM_URL, external: true },
+                    { label: "Twitter", href: X_URL, external: true },
                   ]}
                 />
               </MultiColumnFooter>

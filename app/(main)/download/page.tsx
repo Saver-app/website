@@ -82,9 +82,9 @@ const otherWaysToUseSaver: readonly DownloadOption[] = [
 ];
 
 export const metadata = createPageMetadata({
-  title: "Download Saver | Saver",
+  title: "Download Saver for iPhone, Android, and the Web",
   description:
-    "Get Saver for iPhone, Android, Safari, Chrome, and reMarkable, or use the web app and Discord bot.",
+    "Download Saver free for iPhone, iPad, and Android. Add the Safari or Chrome extension, open the web app, or connect the Discord bot and your reMarkable.",
   path: "/download",
 }) satisfies Metadata;
 

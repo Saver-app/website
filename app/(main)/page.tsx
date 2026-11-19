@@ -2,6 +2,7 @@ import { DownloadActionButton } from "@/components/download_action_button/downlo
 import { ConfettiHero } from "@/components/confetti_hero/confetti_hero";
 import { DeviceScreenshot } from "@/components/device_screenshot/device_screenshot";
 import { Icon } from "@/components/icon/icon";
+import { JsonLd } from "@/components/json_ld/json_ld";
 import { PlatformActionButton } from "@/components/platform_action_button/platform_action_button";
 import { Section } from "@/components/section/section";
 import {
@@ -12,6 +13,7 @@ import {
   REDDIT_URL,
   WEB_APP_URL,
 } from "@/constants";
+import { HOME_STRUCTURED_DATA } from "@/lib/structured_data";
 import styles from "./page.module.css";
 
 import DiscordLogo from "@/public/app_view/discord_logo.svg";
@@ -281,6 +283,8 @@ const spaceNotes = [
 export default function Page() {
   return (
     <>
+      <JsonLd data={HOME_STRUCTURED_DATA} />
+
       <ConfettiHero
         title={
           /*

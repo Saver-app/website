@@ -14,11 +14,18 @@ export async function generateMetadata({
   params: Promise<{ page: string }>;
 }): Promise<Metadata> {
   const { page } = await params;
+  const isFirstPage = page === "1";
 
   return createPageMetadata({
-    title: `Release Notes: Page ${page} | Saver`,
+    title: isFirstPage
+      ? "Release Notes | Saver"
+      : `Release Notes: Page ${page} | Saver`,
     description: "See what is new, improved, and fixed in Saver.",
-    path: `/release-notes/${page}`,
+    /*
+      Page 1 shows the same notes as /release-notes, so it names that page as
+      the one to index instead of competing with it.
+    */
+    path: isFirstPage ? "/release-notes" : `/release-notes/${page}`,
   });
 }
 
