@@ -86,6 +86,34 @@ test("the home page describes the site, its publisher, and the app", async ({
   }
 });
 
+test.describe("read without scripts, the way a crawler reads a page", () => {
+  /*
+    Once the page runs, the download button names the visitor's phone, so on a
+    phone all three say the same. A crawler reads the HTML as it is served.
+  */
+  test.use({ javaScriptEnabled: false });
+
+  test("no two links on the home page share a text", async ({ page }) => {
+    await page.goto("/");
+
+    const texts = await page.locator("a").evaluateAll((links) =>
+      links.map((link) => {
+        const text = link.textContent?.trim()
+          ? link.textContent
+          : (link.querySelector("img")?.getAttribute("alt") ?? "");
+
+        return text.replace(/\s+/g, " ").trim().toLowerCase();
+      }),
+    );
+    expect(texts.length).toBeGreaterThan(0);
+
+    const repeated = texts.filter(
+      (text, index) => texts.indexOf(text) !== index,
+    );
+    expect(repeated).toEqual([]);
+  });
+});
+
 test("page 1 of the release notes points to the release notes page", async ({
   page,
 }) => {

@@ -620,12 +620,17 @@ export default function Page() {
             A link for later. A task that keeps slipping. A habit you want to
             stick to. Put it in Saver.
           </p>
+          {/*
+            The same three destinations as the hero's buttons, each under its
+            own words: a link checker counts a text used twice on a page as a
+            duplicate, even when both links lead to the same place.
+          */}
           <div className={styles.closingActions}>
-            <PlatformActionButton size="medium" />
+            <PlatformActionButton size="medium" label="Start using Saver" />
             <span className={styles.desktopOnlyAction}>
               <DownloadActionButton
                 href={WEB_APP_URL}
-                label="Open web app"
+                label="Try the web app"
                 size="medium"
                 showAppleLogo={false}
                 variant="secondary"
@@ -634,7 +639,7 @@ export default function Page() {
             <span className={styles.mobileOnlyAction}>
               <DownloadActionButton
                 href="#platforms"
-                label="See all Saver platforms"
+                label="Choose your platform"
                 size="medium"
                 showAppleLogo={false}
                 variant="secondary"

@@ -40,7 +40,7 @@ Guidance for agentic coding assistants working in this repository.
 ### Tests
 - `npm run build && npm test` runs the Playwright suite in `tests/` against the static export in `out/` (served on port 4319 by `scripts/serve_static_export.mjs`).
 - `tests/mobile.spec.ts` covers phone widths: no sideways scrolling, the burger menu, anchor links, touch-target sizes, and the hero image.
-- `tests/seo.spec.ts` covers what a search engine reads: each page's title, description, and canonical URL, the home page's structured data, the sitemap, and that icons add no words to a page's text.
+- `tests/seo.spec.ts` covers what a search engine reads: each page's title, description, and canonical URL, the home page's structured data, the sitemap, that icons add no words to a page's text, and that no two links on the home page share a text. A link to somewhere the home page already links to needs its own wording, in the navbar and footer too.
 - Single spec: `npx playwright test tests/mobile.spec.ts`; single test: `npx playwright test -g "menu opens"`; one engine: `--project=mobile-safari`.
 
 ### Single-Test Patterns (when tests are added)

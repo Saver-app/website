@@ -93,7 +93,7 @@ export default function RootLayout({
                   { label: "Pricing", href: "#pricing" },
                   { label: "Docs", href: "https://docs.saver-app.com", external: true },
                 ]}
-                action={<PlatformActionButton />}
+                action={<PlatformActionButton label="Get the app" />}
                 mobileAction={
                   <DownloadActionButton
                     href={WEB_APP_URL}
@@ -131,14 +131,20 @@ export default function RootLayout({
                   </span>
                 }
               >
+                {/*
+                  "Ways to Capture" and "Plans & Pricing" lead to the same
+                  sections as the navbar's "Capture" and "Pricing". They are
+                  worded differently because the navbar is on every page too,
+                  and a link checker counts a text used twice as a duplicate.
+                */}
                 <MultiColumnFooter.Column
                   title="Saver"
                   links={[
                     { label: "Web App", href: WEB_APP_URL, external: true },
                     { label: "Mobile Apps", href: "/download#mobile" },
                     { label: "Browser Extensions", href: "/download#extensions" },
-                    { label: "Capture", href: "/#capture" },
-                    { label: "Pricing", href: "/#pricing" },
+                    { label: "Ways to Capture", href: "/#capture" },
+                    { label: "Plans & Pricing", href: "/#pricing" },
                     { label: "Release Notes", href: "/release-notes" },
                   ]}
                 />
